@@ -1,0 +1,21 @@
+{
+    "✨ Beliefs": ["🗿 Religion", "🧜 Mythology", "🧚 Folklore", "🔮 The Occult", "🕯️ Spirituality", "🌘 Astrology", "🌸 Other"],
+
+    "🎪 Culture": ["📚 Books, Comics & Manga", "📺 Film, TV, Anime & Cartoons", "🎙️ Podcasts", "🎮 Video Games", "🎸 Music", "🎲 Board Games, Toys", "💬 Society", "🌐 The Internet", "🎠 Other"],
+
+    "👑 Power": ["📈 Economics", "🛸 Conspiracy", "🎗️ Activism", "🛡️ Ideologies", "💀 Existential Risks", "🌎 Global Politics", "🇺🇸 US Politics", "📌 Other"],
+
+    "💼 Job Fair": ["💵 Money", "🎉 Marketing & Advertising", "🤩 Influencing", "🧐 Entrepreneurship", "🚦 Manage", "🛎️ Human Resources", "🚧 Career Development", "🍾 Other"],
+
+    "🌲 Life": ["🤝 Ships", "🍼 Pregnancy & Parenting", "💎 Pro Tips", "🌈 Identity", "🌿 Mind, Body & Soul", "🐶 Pets & Animals", "🍄 Drugs", "⛵ Travel", "🌼 Home & Garden","🦔 Other"],
+
+    "🦖 Creativity": ["🥦 Food & Drink", "🖍️ DIY", "🎤 Audio", "📕 Writing", "🎀 Beauty & Fashion", "🎭 Performance", "📷 Photo & Video", "📐 Design", "🎨 Artistry", "🍭 Other"],
+    
+    "🏹 Sports": ["🚘 Wheels", "🏀 Balls", "🐴 Animals", "🥊 Fights", "🏄 Water", "⛷️ Snow & Ice", "🧗 Adventures", "🧘 The Bod", "🏋️ Weights", "🏸 Other"],
+
+    "💡 Academia": ["🔬 Science", "🤖 Tech", "📐 Engineering", "🆒 Math", "🚀 Space", "👤 Humanities", "🔦 Other"],
+
+    "🍿 Chill": ["🍻 Lounge", "👻 After Dark ", "🛋️ Advice", "🙊 Confession", "🧙 Roleplay", "🐣 Wholesome", "🤠 AMA & IAMA", "🙋 How Do I?", "🍦 Other"],
+
+    "🗣️ Languages" : ["cat1", "cat2", "cat3", "cat4", "cat5", "cat6", "cat7", "cat8", "cat9"]
+}

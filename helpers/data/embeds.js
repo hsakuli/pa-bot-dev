@@ -1,26 +1,44 @@
 const Discord = require('discord.js');
 
-//  ALVIS EMBED RESPONSES
+function createInviteEmbed(inv_link, topic) {
+    const inviteEmbed = new Discord.MessageEmbed()
+        .setColor('BLURPLE')
+        .setTitle(`__NEW TOPIC__`)
+        .setDescription(`Join: [**${topic}**](https://discord.gg/${inv_link})`)
+        .setThumbnail('https://i.imgur.com/KYVG482.jpeg') //set this to alvis' face
+        .setTimestamp()
+    return inviteEmbed;
+}
 
-const exampleEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
-    .setTitle('Some title')
-    .setDescription('Description after the edit');
+const rulesEmbed = new Discord.MessageEmbed()
+    .setColor('DARK_NAVY')
+    .setTitle('These are the rules')
+    .setDescription('Follow them or else')
+    .setThumbnail('https://i.imgur.com/KYVG482.jpeg') //set this to alvis' face
+    
 
-
-const helpText = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+const helpEmbed = new Discord.MessageEmbed()
+    .setColor('DARK_NAVY')
     .setTitle('Some title')
     .setURL('https://discord.js.org/')
     .setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
     .setDescription('Some description here')
-    .setThumbnail('https://i.imgur.com/wSTFkRM.png')
-    .addFields(
-        { name: 'Regular field title', value: 'Some value here' },
-        { name: '\u200B', value: '\u200B' },
-        { name: 'Inline field title', value: 'Some value here', inline: true },
-        { name: 'Inline field title', value: 'Some value here', inline: true },
-    )
+    .setThumbnail('https://i.imgur.com/KYVG482.jpeg') //set this to alvis' face
+    .addFields({
+        name: 'Regular field title',
+        value: 'Some value here'
+    }, {
+        name: '\u200B',
+        value: '\u200B'
+    }, {
+        name: 'Inline field title',
+        value: 'Some value here',
+        inline: true
+    }, {
+        name: 'Inline field title',
+        value: 'Some value here',
+        inline: true
+    } )
     .addField('Inline field title', 'Some value here', true)
     .setImage('https://i.imgur.com/wSTFkRM.png')
     .setTimestamp()
@@ -29,12 +47,14 @@ const helpText = new Discord.MessageEmbed()
 const welcomeText = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('Welcome to the project: ATLAS')
-    .setDescription('Description after the title');
+    .setDescription('INCLUDE: All official project atlas servers. project atlas website. links to rules and info on website')
+    .setThumbnail('https://i.imgur.com/KYVG482.jpeg');
 
-const dailyWipeReadout = new Discord.MessageEmbed()
+//const dailyWipeReadout = new Discord.MessageEmbed()
 
 module.exports = {
-    exampleEmbed,
-    helpText,
-    welcomeText
+    createInviteEmbed,
+    helpEmbed,
+    welcomeText,
+    rulesEmbed
 }

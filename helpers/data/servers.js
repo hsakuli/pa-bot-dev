@@ -1,6 +1,3 @@
-// EVERYTHING IS FUCKED. I think i need a db
-
-
 // server # is probably the guild id
 // store other server data in here? administraor names/ info, special 
 // --maybe reference themes from the theme list above?

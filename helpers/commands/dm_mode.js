@@ -1,6 +1,6 @@
 
 // this file is built for the ALVIS interactive builder functionality (dm)
-
+// USE MESSAGE COLLECTORS
 
 //MAIN FUNCTIONS ---------------------------------------------------------------------------------
 

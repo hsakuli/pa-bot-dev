@@ -1,10 +1,8 @@
-let fs = require('fs');
+const fs = require('fs');
+const schedule = require('node-schedule');
 
-
-// Routines every minute, and every day
-
+const {topicsCache} = require('./caches.js');
 // WHEN
-// user: connect, disconnect, !events, (messages + media uploads)?
 // channel: creation, destruction, fork 
 // WHAT  
 // channel: roomID, timestamp, parentID, type, name/ topic, #users
@@ -16,7 +14,11 @@ let fs = require('fs');
 // Make secure connection to website
 
 
+//MAIN FUNCTIONS ---------------------------------------------------------------------------------
 
+
+
+//is storing all data every minute overkill?
 // every minute: get information from discord.client, clean and parse, add to data_timeline.json, send payload to website
 function updateData(client){
     // use client.channels 
@@ -24,13 +26,18 @@ function updateData(client){
     console.log("updated data");
 }
 
+//is storing all data every minute overkill?
 // Daily: clean data_timeline, send to email (database@projectatlas.gg)
 function dumpData(){
     console.log("dump data");
 }
 
-//what sort of things do i need to clean? 
-//is storing all data every minute overkill?
+
+
+
+// HELPER FUNCTIONS ------------------------------------------------------------------------------
+
+
 
 module.exports = {
     updateData,

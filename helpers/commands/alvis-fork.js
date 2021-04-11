@@ -1,6 +1,5 @@
 // this file is built for things alvis can do
 // how do i make atlas only affect PA channels and not fuck with other things on the server
-const {categoryList, serverList} = require('./data/servers.js');
 
 
 //MAIN FUNCTIONS ---------------------------------------------------------------------------------

@@ -1,0 +1,49 @@
+{
+    "guildid1": {
+        "themes": ["theme 1, theme 2"],
+        "name": "name of server",
+        "dateAdded":"timestamp",
+        "contacts": [
+            {
+                "name": "Gurken Pickledorf",
+                "discord id":"0984750289475",
+                "email":"abcd@123.com",
+                "phone":"1234567890"
+            }, {
+                "name": "Bismo Funguns",
+                "discord id": "0984750289475",
+                "email": "abcd@123.com",
+                "phone": "1234567890"
+            }
+        ],
+        "static_channels": [ {
+                "id":"123",
+                "name":"this is it" 
+            },
+            {
+                "id": "123",
+                "name": "this is it"
+            }
+        ]
+    }
+    ,
+    "guildid2": {
+        "themes": [ "theme 3" ],
+        "name": "name of server",
+        "dateAdded": "timestamp",
+        "contacts": [
+            {
+                "name": "Hiedi Plornk",
+                "discord id": "0984750289475",
+                "email": "abcd@123.com",
+                "phone": "1234567890"
+            },
+            {
+                "name": "Yeetus Crust",
+                "discord id": "0984750289475",
+                "email": "abcd@123.com",
+                "phone": "1234567890"
+            }
+        ]
+    }
+}

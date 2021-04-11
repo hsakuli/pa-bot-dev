@@ -1,0 +1,20 @@
+{
+    "user_id1": {
+        "timestamp": "time",
+        "reason":"they were bad",
+        "name": "name",
+        "banned_by": "mod_id - MIGHT NEED MORE THAN THIS, IDK how to dm someone in discord through their id. might need a name or something else instead"
+    },
+    "user_id2": {
+        "timestamp": "time",
+        "reason": "they were bad",
+        "name": "name",
+        "banned_by": "mod_id"
+    }
+    ,"user_id3": {
+        "timestamp": "time",
+        "reason": "they were bad",
+        "name": "name",
+        "banned_by": "mod_id"
+    }
+}
