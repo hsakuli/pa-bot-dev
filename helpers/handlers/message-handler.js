@@ -3,6 +3,7 @@ const alvis_delete = require("../commands/alvis-delete.js");
 const alvis_fork = require("../commands/alvis-fork.js");
 const alvis_responses = require("../data/embeds.js");
 const alvis_setup = require("../commands/alvis-setup");
+const { unbanMember } = require("./guild-member-handler")
 const prefix = "!";
 
 const handleMessage = (message) => {
@@ -43,23 +44,30 @@ const handleMessage = (message) => {
                 //     }
                 
                 case 'setup':
-                    if (message.member.hasPermission(['MANAGE_GUILD', 'ADMINISTRATOR'])) {
+                    if (message.member.hasPermission(['MANAGE_GUILD'])) {
                         return alvis_setup.setupNewGuild(message);
                     } else {
-                        return message.reply("You need the permissions: MANAGE_GUILD and ADMINISTRATOR to run !setup.")
+                        return message.reply("You need the permission: MANAGE_GUILD to run !setup.")
                     }
 
                 case 'theme':
-                    if (message.member.hasPermission(['MANAGE_GUILD', 'ADMINISTRATOR'])){
+                    if (message.member.hasPermission(['MANAGE_GUILD'])){
                         return alvis_setup.setupTheme(message);
                     } else {
-                        return message.reply("You need the permissions: MANAGE_GUILD and ADMINISTRATOR to run !theme.")
+                        return message.reply("You need the permission: MANAGE_GUILD to run !theme.")
+                    }
+                
+                case 'unban':
+                    if (message.member.id === "430917826694610954"){
+                        return unbanMember(message, args)
+                    } else {
+                        return message.reply(`You need higher permissions to use this command.`)
                     }
 
                 // DELETE THIS COMMAND AFTER DONE TESTING IT
                 case 'del':
                     console.log('DAILY DELETE EVENT');
-                    if (message.member.hasPermission(['MANAGE_GUILD', 'ADMINISTRATOR'])) {
+                    if (message.member.hasPermission(['MANAGE_GUILD'])) {
                         return alvis_delete.dailyDelete(message.client);;
                     } else {
                         return message.reply("You need the permissions: MANAGE_GUILD and ADMINISTRATOR to run !del.")
@@ -68,7 +76,7 @@ const handleMessage = (message) => {
                 // DELETE THIS COMMAND AFTER DONE TESTING IT
                 case 'devdel':
                     console.log('DEV DEL');
-                    if (message.member.hasPermission(['MANAGE_GUILD', 'ADMINISTRATOR'])) {
+                    if (message.member.id === "430917826694610954" && message.member.hasPermission(['MANAGE_GUILD'])) {
                         return alvis_delete.devDelete(message);
                     } else {
                         return message.reply("You need the permissions: MANAGE_GUILD and ADMINISTRATOR to run !devdel.")

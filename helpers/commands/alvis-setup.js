@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const path = require("path");
-const {rulesEmbed} = require("../data/embeds")
+const { rulesEmbed } = require("../data/embeds")
+const { setBannedUsers } = require('../db/bans')
 
 //MAIN FUNCTIONS ---------------------------------------------------------------------------------
 
@@ -23,8 +24,9 @@ function setupNewGuild(message) {
                 console.log(`THEMES SPLIT: ${themes}`)
                 const themeName = themes[number];
                 console.log(`Theme name: ${themeName}`);
-                initStaticChannels(message)
-                // initTheme(message, themeName)
+                initStaticChannels(message);
+                // initTheme(message, themeName);
+                // setBannedUsers(message);
                 message.channel.send(`Setting up your server with theme: ${themeName}`)
             } else {
                 message.channel.send(`\"${number}\" is not a valid option. Please try the !setup command again`)
@@ -64,6 +66,7 @@ function setupTheme(message){
     });
 }   
 
+
 //how the f do i add private chanells
 function initStaticChannels(message) {
     let catID= "";
@@ -73,25 +76,30 @@ function initStaticChannels(message) {
     message.guild.channels.create("project:ATLAS", { type: "category", position: '42069' })
     .then(response => {
         catID = response.id
-        return message.guild.channels.create("PROJECT-ATLAS", { type: "text", position: '42069', parent: catID })
-        
+        return message.guild.channels.create("project-atlas", { type: "text", position: '42069', parent: catID })
     }).then( _ => {
-        return message.guild.channels.create("rules-n-stuff", { type: "text", position: '42069', parent: catID })
+        return message.guild.channels.create("pa-rules-n-stuff", { type: "text", position: '42069', parent: catID })
     }).then(response => {
         return response.send("RULES AND STUFF", { embed: rulesEmbed, split: true})
     }).then(_ => {
         return message.guild.channels.create("pa-announcements", { type: "text", position: '42069', parent: catID })
     }).then(_ => {
         return message.guild.channels.create("pa-mod-only", { type: "text", position: '42069', parent: catID})
-    }).then(response => {
-        return response.send("Make this a private channel, with whatever permissions are applicable.\nTo finish the configuration follow the corresponding channels in your server.\nLINK 1\nLINK2", { split: true })
+    }).then(channel => {
+        //this new channel needs to be private mod only? how od i make that???
+        return channel.overwritePermissions([
+            {
+                id: message.guild.roles.everyone,
+                deny: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
+            }
+        ])
+    }).then(channel => {
+        //this shit is fucked
+        return message.reply("Add the appropriate permissions to the pa-mod-only channel.\nTo finish the configuration follow the corresponding channels in your server.\nLINK 1\nLINK2", { split: true })
+
     })
-    // .then(response => {
-    //     //this shit is fucked
-    //     return response.overwritePermissions(everyoneRole, { VIEW_CHANNEL: false });
-    // })
-    .catch(e => { console.log(`ERROR: creating channel :: ${e}`); })
-    message.guild.channels.create("Custom Topics -----------------", { type: "category", position: '43000' }).catch(e => { console.log(`ERROR: creating channel :: ${e}`); })
+    .catch(e => { console.log(`ERROR creating static channels :: ${e}`); })
+    message.guild.channels.create("Custom Topics -----------------", { type: "category", position: '43000' }).catch(e => { console.log(`ERROR creating custom topics category :: ${e}`); })
 
 }
 

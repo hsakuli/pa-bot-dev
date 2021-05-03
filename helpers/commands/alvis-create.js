@@ -2,6 +2,8 @@
 // how do i make atlas only affect PA channels and not fuck with other things on the server
 const { createInviteEmbed } = require('../data/embeds');
 const { topicsCache, commandTimeoutCache, categoriesCache } = require('../routines/caches');
+const { createChannelDB } = require('../db/custom-channels')
+
 const Filter = require('bad-words');
 const bad_words = require('../data/bad_words.json');
 const filter = new Filter({ list: bad_words.words });
@@ -21,13 +23,13 @@ async function newTopicInCat(message, args) {
         if(checked){
             let messageauthorid = message.author.id ;
             message.guild.channels.create(channelName, { topic: channelName, position: 1, type: 'voice', parent: parentCategory, reason: "PA_CUSTOM_TOPIC_FLAG" }).then(
-                response => { //successfully created voice channel for new topic in category
-                    storeIdForDeletion(response);
-                    return response.createInvite()
+                channel => { //successfully created voice channel for new topic in category
+                    return channel.createInvite()
                 }
             ).then(invite => {
                 //sends invite link back into cahnnel it was created in
                 // message.channel.send(`Someone made a new topic! Join the voice channel here: https://discord.gg/${invite.code}.`);
+                storeIdForDeletion(invite, message, channelName);
                 return message.channel.send(createInviteEmbed(invite.code, channelName));
                 // also respond in the servers terminal, eventually also in the other category chats
             }).then(message => {
@@ -87,17 +89,19 @@ async function masterChecker(message, channelName) {
     }
 }  
 
-async function storeIdForDeletion(channel) {
+async function storeIdForDeletion(invite, message, channelName) {
     //store the (id: {topic, {data}) in a db or filesystem
     //probably an async function
 
     //---- ~ WRITE TO DB BOIS ~ -----
 
     try {
-        await topicsCache.set(channel, Date.now())
+        await topicsCache.set(invite.channel.id, Date.now());
+        await createChannelDB(invite, message, channelName);
     } catch (e) {
-        console.log(`ERROR: ${e}`);
+        console.log(`ERROR - storeIdForDeletion: ${e}`);
     }
+
 }
 
 

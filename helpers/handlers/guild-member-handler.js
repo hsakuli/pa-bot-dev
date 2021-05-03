@@ -1,32 +1,42 @@
 const alvis_responses = require("../data/embeds.js");
-const { bansCache } = require('../routines/caches');
-
+const { banUserDB, unbanUserDB } = require("../db/bans");
 
 const handleNewMember = (member) => {
-    //check to see if user is banned -- kick if they are on the global ban list wiht reason
-    bansCache.get(member.id)
-    .then((bannedUser) => {
-        //this user is banned
-
-    })
-    .catch((e) => {
-        //this user doesnt exist in the ban
-    });
-    console.log(`New user has joined ${member.name}`);
+    console.log(`New user, ${member.username} -- ${member.id}, has joined`);
     return member.send(alvis_responses.welcomeText);
     // dm the user from alvis
     // i can log that a new user has joined
 }
 
-const banMember = (member) => {
+//change the way this works later. fires every guildbanmember event (aka # of servers)
+const banMember = (guild, user) => {
     // add user to ban list cache and to ban list json / db 
     //make sure to ban user on all other PA servers. the handle new member event will not fire :/
-    console.log(`User banned: ${member.name}`);
+    try{
+        banUserDB(guild, user);
+    } catch (e) {
+        console.log(`DB ERROR-ban member handler: ${e}`)
+        //retry to ban the member later?
+    }
+    guild.client.guilds.cache.forEach(guild => {
+        guild.members.ban(user).catch( e => { console.log(`Error banning user: ${user} in server ${guild.id}\nE-- ${e}`) })
+    });
+    console.log(`User banned: ${user.username} - ${user.id} from guildID: ${guild.id}`);
     return;
 }
 
-const unbanMember = (member) => {
-    console.log(`User unbanned: ${member.name}`);
+async function unbanMember(message, args) {
+    //check if message has correct mention
+    const userID = args.join(" ");
+    try {
+        await unbanUserDB(userID);
+    } catch (e) {
+        console.log(`DB ERROR-ban member handler: ${e}`)
+    }
+    message.client.guilds.cache.forEach(guild => {
+        guild.members.unban(userID).catch(e => { console.log(`Error unbanning banning user: ${userID} in server ${guild.id}\nE-- ${e}`) })
+    })
+    console.log(`User unbanned: ${userID}`);
     return;
 }
 

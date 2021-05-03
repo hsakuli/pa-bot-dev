@@ -2,7 +2,6 @@ const fs = require('fs');
 const Keyv = require('keyv');
 const path = require("path");
 
-const bansCache = new Keyv({ namespace: "bansCache" });
 const categoriesCache = new Keyv({ namespace: "categoriesCache" });
 const topicsCache = new Keyv({ namespace: "topicsCache" });
 const commandTimeoutCache = new Keyv({namespace: "ctCache"});
@@ -23,21 +22,6 @@ const commandTimeoutCache = new Keyv({namespace: "ctCache"});
 
 //read data from db/ files and add data to caches
 async function setupCaches() {
-    try{
-        const bannedUsersJSON = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../data/banned_users.json")));
-        for (let buser in bannedUsersJSON) {
-            // console.log(buser + ": " + bannedUsersJSON[buser].name+ bannedUsersJSON[buser].name);
-            await bansCache.set(buser, {
-                "name": bannedUsersJSON[buser].name,
-                "reason": bannedUsersJSON[buser].reason,
-                "timestamp": bannedUsersJSON[buser].timestamp,
-                "banned by": bannedUsersJSON[buser].banned_by
-            })
-        }
-    } catch(e) {
-        console.log(`Creating bansCache has failed with error \n: ${e}`);
-    }
-    // console.log(await bansCache.get("user_id1"));
     
     try{
         const catListJSON = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../data/pa_categories.json")));
@@ -63,8 +47,6 @@ async function setupCaches() {
         console.log(`Creating topicsCache has failed with error \n: ${e}`);
     }
     
-    // category ids
-    //const topicListJSON = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../data/banned_users.json")));
 
     
     console.log("Caches have been setup :)")
@@ -79,7 +61,6 @@ async function setupCaches() {
 
 module.exports = {
     setupCaches,
-    bansCache,
     categoriesCache,
     topicsCache,
     commandTimeoutCache

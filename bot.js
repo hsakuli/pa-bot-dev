@@ -15,8 +15,10 @@ client.once('ready', startUp.startUp);
 
 client.on('message', messageHandler.handleMessage );
 client.on('guildMemberAdd', guildMemberHandler.handleNewMember);
+
+//change the way this works later. fires every guildbanmember event (aka # of servers)
 client.on('guildBanAdd', guildMemberHandler.banMember);
-client.on('guildBanRemove', guildMemberHandler.unbanMember);
+// client.on('guildBanRemove', guildMemberHandler.unbanMember);
 
 
 client.on("guildCreate", guild => {

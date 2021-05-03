@@ -16,7 +16,6 @@ async function dailyDelete(client){
     //load category data
     //MUST BE ABLE TO HANDLE WHEN A SERVER IS OFFLINE - if channels cant be deleted they stay in the custom_topics.json
     
- 
     topicsCache.opts.store.forEach((val, key) => {
         let currentSnowflake;
         const keyStripped = key.slice(12); //only works when namespace is topicsCache
@@ -80,7 +79,7 @@ function delCat(message, args) {
 
 function devDelete(message) {
     message.guild.channels.cache.forEach(channel => {
-        const modChannels = ["810344292286988348", "815749669057462322", "830911713204633601"]
+        const modChannels = ["810344292286988348", "815749669057462322", "830911713204633601", "830938936461361152", "833521422068350987"]
         if (modChannels.includes(channel.id) === false){
             channel.delete()
         }
