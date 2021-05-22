@@ -16,6 +16,7 @@ const filter = new Filter({ list: bad_words.words });
 // add the topic to cache and write it to db
 async function newTopicInCat(message, args) {
     const channelName = args.join(" ");
+    const author = message.author.username;
     const parentCategory = message.channel.parent;
 
     try{ 
@@ -30,7 +31,7 @@ async function newTopicInCat(message, args) {
                 //sends invite link back into cahnnel it was created in
                 // message.channel.send(`Someone made a new topic! Join the voice channel here: https://discord.gg/${invite.code}.`);
                 storeIdForDeletion(invite, message, channelName);
-                return message.channel.send(createInviteEmbed(invite.code, channelName));
+                return message.channel.send(createInviteEmbed(invite.code, channelName, author));
                 // also respond in the servers terminal, eventually also in the other category chats
             }).then(message => {
                 return commandTimeoutCache.set(messageauthorid, message.createdAt, 90000); //sets for 90s {userID, timestamp}

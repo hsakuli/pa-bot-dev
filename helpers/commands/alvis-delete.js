@@ -80,7 +80,7 @@ function delCat(message, args) {
 function devDelete(message) {
     message.guild.channels.cache.forEach(channel => {
         const modChannels = ["810344292286988348", "815749669057462322", "830911713204633601", "830938936461361152", "833521422068350987"]
-        if (modChannels.includes(channel.id) === false){
+        if (modChannels.includes(channel.id) === false && channel.type==="voice"){
             channel.delete()
         }
     })

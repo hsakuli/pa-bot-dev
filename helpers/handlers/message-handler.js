@@ -21,6 +21,8 @@ const handleMessage = (message) => {
             const args = message.content.slice(prefix.length).split(/ +/);
             const command = args.shift().toLowerCase();
 
+            // add cases: fork, help
+            //remove: dev_del, de
             switch (command) {
                 case 'marco':
                     return message.channel.send('polo');
@@ -58,6 +60,7 @@ const handleMessage = (message) => {
                     }
                 
                 case 'unban':
+                    //this should only work for me
                     if (message.member.id === "430917826694610954"){
                         return unbanMember(message, args)
                     } else {

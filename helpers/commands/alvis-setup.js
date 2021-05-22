@@ -25,8 +25,8 @@ function setupNewGuild(message) {
                 const themeName = themes[number];
                 console.log(`Theme name: ${themeName}`);
                 initStaticChannels(message);
-                // initTheme(message, themeName);
-                // setBannedUsers(message);
+                initTheme(message, themeName);
+                setBannedUsers(message);
                 message.channel.send(`Setting up your server with theme: ${themeName}`)
             } else {
                 message.channel.send(`\"${number}\" is not a valid option. Please try the !setup command again`)
@@ -54,7 +54,7 @@ function setupTheme(message){
                 console.log(`THEMES SPLIT: ${themes}`)
                 const themeName = themes[number];
                 console.log(`Theme name: ${themeName}`);
-                initStaticChannels(message)
+                initTheme(message, themeName);
                 message.channel.send(`Setting up your server with theme: ${themeName}`)
             } else {
                 message.channel.send(`\"${number}\" is not a valid option. Please try the !setup command again`)
@@ -70,7 +70,7 @@ function setupTheme(message){
 //how the f do i add private chanells
 function initStaticChannels(message) {
     let catID= "";
-
+    // REMEMBER:  send messages/ embeds to static channnels
     // const everyoneRole = message.guild.roles.find('name', '@everyone');
 
     message.guild.channels.create("project:ATLAS", { type: "category", position: '42069' })
@@ -84,18 +84,20 @@ function initStaticChannels(message) {
     }).then(_ => {
         return message.guild.channels.create("pa-announcements", { type: "text", position: '42069', parent: catID })
     }).then(_ => {
-        return message.guild.channels.create("pa-mod-only", { type: "text", position: '42069', parent: catID})
-    }).then(channel => {
-        //this new channel needs to be private mod only? how od i make that???
-        return channel.overwritePermissions([
-            {
-                id: message.guild.roles.everyone,
-                deny: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
-            }
-        ])
-    }).then(channel => {
+        return message.guild.channels.create("pa-mod-comms", { type: "text", position: '42069', parent: catID})
+    })
+    // .then(channel => {
+    //     //this new channel needs to be private mod only? how od i make that???
+    //     return channel.overwritePermissions([
+    //         {
+    //             id: message.guild.roles.everyone,
+    //             deny: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
+    //         }
+    //     ])
+    // })
+    .then(channel => {
         //this shit is fucked
-        return message.reply("Add the appropriate permissions to the pa-mod-only channel.\nTo finish the configuration follow the corresponding channels in your server.\nLINK 1\nLINK2", { split: true })
+        return message.reply("Add the appropriate permissions to the pa-mod-comms channel.\nTo finish the configuration follow the corresponding channels in your server.\nLINK 1\nLINK2", { split: true })
 
     })
     .catch(e => { console.log(`ERROR creating static channels :: ${e}`); })

@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
 
-function createInviteEmbed(inv_link, topic) {
+function createInviteEmbed(inv_link, topic, author) {
     const inviteEmbed = new Discord.MessageEmbed()
         .setColor('BLURPLE')
-        .setTitle(`__NEW TOPIC__`)
-        .setDescription(`Join: [**${topic}**](https://discord.gg/${inv_link})`)
+        .setTitle(`__NEW CHANNEL ALERT__`)
+        .setDescription(`Topic: [**${topic}**](https://discord.gg/${inv_link})\nAuthor: ${author}`)
         .setThumbnail('https://i.imgur.com/KYVG482.jpeg') //set this to alvis' face
         .setTimestamp()
     return inviteEmbed;
