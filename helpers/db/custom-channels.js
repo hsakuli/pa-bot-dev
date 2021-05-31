@@ -1,5 +1,5 @@
 const { connectDB } = require('./mongo');
-const { customTopics } = require('./schemas');
+const { customChannels } = require('./schemas');
 
 const util = require('util')
 
@@ -8,7 +8,7 @@ async function createChannelDB(invite, message, channelName) {
     // console.log(util.inspect(invite, { showHidden: false, depth: null }))
     await connectDB().then(async (mongoose) => {
         try {
-            await customTopics.findOneAndUpdate({
+            await customChannels.findOneAndUpdate({
                 _id: invite.channel.id
             }, {
                 _id: invite.channel.id,
@@ -27,17 +27,17 @@ async function createChannelDB(invite, message, channelName) {
 }
 
 
-async function deleteChannelDB(userID) {
+async function deleteChannelDB(channelID) {
     await connectDB().then(async (mongoose) => {
         try {
-            await bannedUsers.deleteOne({ _id: userID })
+            await customChannels.deleteOne({ _id: channelID })
         } finally {
             mongoose.connection.close()
         }
-    }).catch(e => { console.log(`Error writing to banned users: ${e}`) });
+    }).catch(e => { console.log(`Error deleting from custom channels: ${e}`) });
 }
 
 module.exports = {
     createChannelDB,
-    deleteChannelDB
+    deleteChannelDB,
 }

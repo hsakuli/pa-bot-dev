@@ -1,7 +1,6 @@
 const fs = require('fs');
 const schedule = require('node-schedule');
 
-const {topicsCache} = require('./caches.js');
 // WHEN
 // channel: creation, destruction, fork 
 // WHAT  

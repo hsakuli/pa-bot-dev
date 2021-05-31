@@ -1,7 +1,7 @@
 const fs = require('fs');
 const schedule = require('node-schedule');
 
-const {setupCaches, updateCaches} = require('./caches.js');
+const {setupCaches} = require('./caches.js');
 const dumps = require('./dumps.js')
 const alvis_delete = require('../commands/alvis-delete.js')
 const {connectDB} = require('../db/mongo')
@@ -28,7 +28,7 @@ async function startUp() {
     try{
         await connectDB().then((mongoose) => {
             try {
-                console.log(`Connected to MongoDB`)
+                console.log(`SETUP - connected to MongoDB`)
             } finally {
                 mongoose.connection.close()
             }
@@ -39,21 +39,23 @@ async function startUp() {
         console.log(`Error setting up ${e}`)
     }
    
+    // // I dont think this needs to exist. every minute the BROWSER requests a updated list
     // // might change to 2-5 minute range depending on how much usage
     // schedule.scheduleJob('42 * * * * *', () => {
     //     // i think client.channels is protected with those fkin gateways
     //     dumps.updateData(client.channels);
     // });
+    // console.log('SETUP - minuteley dump');
 
-    // schedule.scheduleJob('0 3 * * *', () => {
-    //     // i think client.channels is protected with those fkin gateways
-    //     console.log('Alvis has started his dump');
 
-    //     dumps.dumpData();
-    //     updateCaches(); // get new data from db for ban list, cats, themes, bad words, etc
-    //     // alvis_delete.dailyDelete(client);
-    //     console.log('Alvis has completed his dump');
-    // });
+    schedule.scheduleJob('0 3 * * *', () => {
+        // i think client.channels is protected with those fkin gateways
+        console.log('Alvis has started his dump');
+
+        // alvis_delete.dailyDelete(client);
+        console.log('Alvis has completed his dump');
+    });
+    console.log('SETUP - daily delete');
 
     //how do i wait to call this or return from the setup. 
     await console.log('FINISH - setup');

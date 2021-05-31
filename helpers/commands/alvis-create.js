@@ -1,7 +1,7 @@
 // this file is built for things alvis can do
 // how do i make atlas only affect PA channels and not fuck with other things on the server
 const { createInviteEmbed } = require('../data/embeds');
-const { topicsCache, commandTimeoutCache, categoriesCache } = require('../routines/caches');
+const { commandTimeoutCache, categoriesCache } = require('../routines/caches');
 const { createChannelDB } = require('../db/custom-channels')
 
 const Filter = require('bad-words');
@@ -97,14 +97,12 @@ async function storeIdForDeletion(invite, message, channelName) {
     //---- ~ WRITE TO DB BOIS ~ -----
 
     try {
-        await topicsCache.set(invite.channel.id, Date.now());
         await createChannelDB(invite, message, channelName);
     } catch (e) {
         console.log(`ERROR - storeIdForDeletion: ${e}`);
     }
 
 }
-
 
 function confirmToCreate(){
     // send question to user, confirm to create (n to cancel. any key to confirm.)
@@ -125,22 +123,6 @@ function findCatSnowflake(message, catName) {
     return false;
 }
 
-
-
-function addToTopicsCache(channelID, topic, parentID) {
-    var hasDuplicates = channels.some((channel) => {
-        if (channel.id === channelID) {
-            return true;
-        }
-    });
-    if (!hasDuplicates) {
-        channels.push({
-            id: channelID,
-            topic: topic,
-            parent: parentID
-        });
-    }
-}
 
 
 

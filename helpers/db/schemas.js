@@ -13,18 +13,18 @@ const bannedUserSchema = mongoose.Schema({
 })
 const bannedUsers = mongoose.model('banned-user-schema', bannedUserSchema); 
  
-const customTopicSchema = mongoose.Schema({
+const customChannelSchema = mongoose.Schema({
     _id: reqString,
     topicName: reqString,
     createdBy: reqString,
     timestamp: Number,
     inviteLink: reqString
 })
-const customTopics = mongoose.model('custom-topic-schema', customTopicSchema); 
+const customChannels = mongoose.model('custom-topic-schema', customChannelSchema); 
 
 
 
  module.exports ={
     bannedUsers,
-    customTopics
+    customChannels
  }  

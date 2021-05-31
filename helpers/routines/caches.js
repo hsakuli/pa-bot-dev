@@ -3,7 +3,6 @@ const Keyv = require('keyv');
 const path = require("path");
 
 const categoriesCache = new Keyv({ namespace: "categoriesCache" });
-const topicsCache = new Keyv({ namespace: "topicsCache" });
 const commandTimeoutCache = new Keyv({namespace: "ctCache"});
 
 // WHEN
@@ -35,21 +34,9 @@ async function setupCaches() {
     //     console.log(result)
     // })
 
-    try {
-        
-        const topicsJSON = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../data/delete_later.json")));
-        for (let topic in topicsJSON) {
-            // console.log(buser + ": " + bannedUsersJSON[buser].name+ bannedUsersJSON[buser].name);
-            //idk what to do with the topics :/
-            await topicsCache.set(topic, topicsJSON[topic].topic, )
-        }
-    } catch (e) {
-        console.log(`Creating topicsCache has failed with error \n: ${e}`);
-    }
-    
 
     
-    console.log("Caches have been setup :)")
+    console.log("SETUP - caches")
 
 }
 
@@ -62,7 +49,6 @@ async function setupCaches() {
 module.exports = {
     setupCaches,
     categoriesCache,
-    topicsCache,
     commandTimeoutCache
 
 }

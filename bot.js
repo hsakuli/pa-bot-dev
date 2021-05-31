@@ -1,13 +1,19 @@
 require('dotenv').config();
 
 const Discord = require('discord.js');
+const client = new Discord.Client();
 
 const alvis_responses = require("./helpers/data/embeds.js");
 const startUp = require("./helpers/routines/startup.js");
-
 const messageHandler = require("./helpers/handlers/message-handler");
 const guildMemberHandler = require("./helpers/handlers/guild-member-handler")
-const client = new Discord.Client();
+
+const { deleteChannelDB } = require("./helpers/db/custom-channels") 
+
+// DELETE HELPER -- fix later
+const { connectDB } = require('./helpers/db/mongo');
+const { customChannels } = require('./helpers/db/schemas');
+
 
 //https://www.npmjs.com/package/wokcommands#custom-dynamic-help-menu
 
@@ -33,6 +39,10 @@ client.on("guildDelete", guild => {
 
 client.on('channelCreate', channel => {
     console.log(`channelCreate Event Listener --> CHANNEL NAME: ${channel.name}`);
+});
+
+client.on('channelDelete', async (channel) => {
+    deleteChannelDB(channel.id);
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {

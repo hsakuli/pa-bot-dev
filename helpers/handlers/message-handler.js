@@ -69,7 +69,7 @@ const handleMessage = (message) => {
 
                 // DELETE THIS COMMAND AFTER DONE TESTING IT
                 case 'del':
-                    console.log('DAILY DELETE EVENT');
+                    console.log('DAILY DELETE EVENT initiated');
                     if (message.member.hasPermission(['MANAGE_GUILD'])) {
                         return alvis_delete.dailyDelete(message.client);;
                     } else {
