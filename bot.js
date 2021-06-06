@@ -2,20 +2,17 @@ require('dotenv').config();
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const express = require('express');
+const app = express();
 
 const alvis_responses = require("./helpers/data/embeds.js");
 const startUp = require("./helpers/routines/startup.js");
 const messageHandler = require("./helpers/handlers/message-handler");
 const guildMemberHandler = require("./helpers/handlers/guild-member-handler")
-
+const { requestChannelData } = require("./helpers/db/custom-channels")
 const { deleteChannelDB } = require("./helpers/db/custom-channels") 
 
-// DELETE HELPER -- fix later
-const { connectDB } = require('./helpers/db/mongo');
-const { customChannels } = require('./helpers/db/schemas');
 
-
-//https://www.npmjs.com/package/wokcommands#custom-dynamic-help-menu
 
 client.once('ready', startUp.startUp);
 
@@ -49,8 +46,6 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     //update user counts in the affect channel(s)
 });
 
-
-
 client.on("error", e => {
     console.log(`DISCORD.js error: ${e}`);
     // dm the user shit has happened
@@ -60,3 +55,11 @@ client.login(process.env.TOKEN);
 
 
 
+// apply rate limiting - max 1 request a minute or whatever the timeframe is
+app.get('/pastuff', (req, res) => {
+    res.send(requestChannelData());
+});
+
+app.listen(process.env.EXPRESS_PORT, () => {
+    console.log(`SETUP - express app @ http://localhost:${process.env.EXPRESS_PORT}`)
+})

@@ -2,7 +2,6 @@
 
 // make alvis post previous topics in a human readable post in the category chat
 
-const { categoriesCache } = require("../routines/caches");
 const { connectDB } = require('../db/mongo');
 const { customChannels } = require('../db/schemas');
 
@@ -49,7 +48,7 @@ async function dailyDelete(client) {
         } finally {
             mongoose.connection.close()
         }
-    }).catch(e => { console.log(`Error deleting from custom channels: ${e}`) });
+    }).catch(e => { console.log(`Error deleting from custom channels - daily delete: ${e}`) });
 };
 
 

@@ -4,6 +4,22 @@ const { customChannels } = require('./schemas');
 const util = require('util')
 
 
+//this bitch is not returning the right vavaluels
+async function requestChannelData() {
+    //request a list of all custom channels and their data from db
+    await connectDB().then(async (mongoose) => {
+        try {
+            //idk if i need to chacge this to json
+            const query = await customChannels.find({}); 
+            console.log(`QUERY: ${query}`);
+            return query;
+        } finally {
+            mongoose.connection.close()
+        }
+    }).catch(e => { console.log(`Error deleting from custom channels: ${e}`) });
+}
+
+
 async function createChannelDB(invite, message, channelName) {
     // console.log(util.inspect(invite, { showHidden: false, depth: null }))
     await connectDB().then(async (mongoose) => {
@@ -40,4 +56,5 @@ async function deleteChannelDB(channelID) {
 module.exports = {
     createChannelDB,
     deleteChannelDB,
+    requestChannelData
 }

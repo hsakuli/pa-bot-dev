@@ -4,6 +4,7 @@ const path = require("path");
 
 const categoriesCache = new Keyv({ namespace: "categoriesCache" });
 const commandTimeoutCache = new Keyv({namespace: "ctCache"});
+// const channelsCache = new Keyv({ namespace: "categoriesCache" });
 
 // WHEN
 // channel: creation, destruction, fork 
@@ -35,6 +36,20 @@ async function setupCaches() {
     // })
 
 
+    // try{
+    //     //request data from about what is pa from db
+    //     // then get updated population info from discord (later feature)
+    //     let cannels = updateChannelData()
+    //     for (let chan in channels) {
+    //         await channelsCache.set('chan_id', {
+    //             topic: '',
+    //             inv: '',
+    //             population: ''
+    //         });
+    //     }
+    // } catch(e) {
+    //     console.log(`Creating channelCache has failed with error \n: ${e}`);
+    // }
     
     console.log("SETUP - caches")
 
