@@ -1,5 +1,5 @@
-mongod - run mongo database
+These are the source files for the project: ATLAS Discord bot.
 
-git push origin master
 
-what discord js is necessary/ api its built for
+use mongod to run local db
+remotes -> git push origin master
