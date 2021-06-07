@@ -1,24 +1,12 @@
-// log if someone uses a delete method to mod channel
-
-// make alvis post previous topics in a human readable post in the category chat
-
 const { connectDB } = require('../db/mongo');
 const { customChannels } = require('../db/schemas');
 
-const CHANNEL_TYPE = "voice";
 
-//MAIN FUNCTIONS ---------------------------------------------------------------------------------
+//MAIN FUNCTIONS -------------------------------------------------------------------------------------------------------
 
-/***** ONLY DELETE CHANNELS MADE BY ALVIS, ADD THEM WHEN HE CREATES THEM. 
-DO NOT ADD THE ONES CREATED IN SETUP. DO NOT DELETE OTHER USERS CHANNELS */
 
+//fetch all custom-topic-channels in db, check if they are populated/ delete them, delete event removes from db
 async function dailyDelete(client) {
-    //fetch all custom-topic-channels in db
-    // go through 1 by 1, check if they are populated and delete them
-    //  should automatically delete from the db through the delete function
-    
-    // add deleted channels to a list and log it in discord?
-
     await connectDB().then(async (mongoose) => {
         try {
             await customChannels.find({}, (err, channels) => {
@@ -28,7 +16,6 @@ async function dailyDelete(client) {
                 channels.forEach(chan => {
                     try {
                         let curChan = client.channels.resolve(chan._id);
-                        // console.log(curChan);
                         if (curChan != undefined) {
                             if (curChan.members.size === 0) {
                                 curChan.delete();
@@ -44,20 +31,14 @@ async function dailyDelete(client) {
                     }
                 })
             })
-
         } finally {
             mongoose.connection.close()
         }
-    }).catch(e => { console.log(`Error deleting from custom channels - daily delete: ${e}`) });
+    }).catch(e => { console.log(`ERROR deleting from custom channels - daily delete: ${e}`) });
 };
 
 
-//delete all atlas setup - dream function rather than mvp
-function delAtlas() {
-    // use channel.client to see who made the channel. if it was alvis delete that shit
-}
-
-
+//delete all channels on dev server except modChannels
 function devDelete(message) {
     message.guild.channels.cache.forEach(channel => {
         const modChannels = ["810344292286988348", "815749669057462322", "830911713204633601", "830938936461361152", "833521422068350987"]
@@ -67,11 +48,8 @@ function devDelete(message) {
     })
 }
 
-//HELPER FUNCTIONS -------------------------------------------------------------------------------------------------------
-
 
 module.exports = {
     dailyDelete,
-    devDelete,
-    delAtlas
+    devDelete
 }

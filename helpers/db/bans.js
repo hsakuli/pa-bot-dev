@@ -2,14 +2,15 @@ const { connectDB } = require('./mongo');
 const { bannedUsers } = require('./schemas');
 
 
+//MAIN FUNCTIONS -------------------------------------------------------------------------------------------------------
+
+
+//creates a list of all banned users
 async function setBannedUsers(message) {
     await connectDB().then(async (mongoose) => {
         try{
             const banList = await bannedUsers.find()
-            console.log(`Ban list: ${banList}`)
-
             if (banList.length === 0) {
-                console.log('No banned users')
                 return
             }
             banList.forEach(member => {
@@ -19,9 +20,11 @@ async function setBannedUsers(message) {
         } catch (e) {
             console.log(`Error awaiting banList: ${e}`)
         }
-    })
+    });
 }
 
+
+//adds a banned user to db
 async function banUserDB(guild, user) {
     await connectDB().then(async(mongoose) => {
         try {
@@ -43,6 +46,7 @@ async function banUserDB(guild, user) {
 }
 
 
+//removes a banners user from db
 async function unbanUserDB(userID) {
     await connectDB().then(async (mongoose) => {
         try {
@@ -52,6 +56,7 @@ async function unbanUserDB(userID) {
         }
     }).catch(e => { console.log(`Error writing to banned users: ${e}`) });
 }
+
 
 module.exports = {
     banUserDB,

@@ -1,6 +1,9 @@
-
 const messageHandler = require("../../helpers/message-handler.js");
 import {messageMock} from '../mocks/message-mock';
+
+
+//MAIN FUNCTIONS -------------------------------------------------------------------------------------------------------
+
 
 describe("Message Handler NEW", () => {
     
@@ -9,4 +12,3 @@ describe("Message Handler NEW", () => {
     })
 })
 
-//toHaveBeenCalled(1)  
